@@ -30,7 +30,7 @@ class WidgetsController < ApplicationController
       if @widget.save
         format.html { redirect_to @widget, notice: 'Widget was successfully created.' }
         format.json { render :show, status: :created, location: @widget }
-        format.js { render :show }
+        format.js { render :show, locals: { foo: 'bar' } }
       else
         format.html { render :new }
         format.json { render json: @widget.errors, status: :unprocessable_entity }
