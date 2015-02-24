@@ -30,7 +30,14 @@ class WidgetsController < ApplicationController
       if @widget.save
         format.html { redirect_to @widget, notice: 'Widget was successfully created.' }
         format.json { render :show, status: :created, location: @widget }
-        format.js { render :show, locals: { foo: 'bar' } }
+
+        # QUESTION: Here, render must be called with explicit "locals: { key: value }".
+        #           "render :show, foo: 'foo'" does not create a local variable 'foo' in the show template.
+
+        format.js { render :show, locals: { foo: 'foo' } }
+        # format.js { render :show, foo: 'foo' }
+
+
       else
         format.html { render :new }
         format.json { render json: @widget.errors, status: :unprocessable_entity }
